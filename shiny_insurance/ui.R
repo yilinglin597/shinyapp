@@ -9,7 +9,9 @@ shinyUI(dashboardPage(
     dashboardSidebar(
         sidebarMenu(
             menuItem("Region Information", tabName = "region_info", icon = icon("map")),
-            menuItem("Who Pays The Most", tabName="medical_cost", icon=icon("wallet")),
+            menuItem("Who Pays The Most", tabName="medical_cost", icon=icon("wallet"),
+                     menuSubItem("gender/smoker/region", tabName = "sub_1"), 
+                     menuSubItem("children", tabName = "sub_2")),
             menuItem("Correlation", tabName="correlation", icon=icon("chart-bar")),
             menuItem("Data", tabName = "data", icon = icon("database")),
             menuItem("About Me", tabName = "aboutme", icon = icon("smile"))
@@ -51,12 +53,20 @@ shinyUI(dashboardPage(
                    
                     ),
                     
-            tabItem(tabName = "medical_cost", 
+            tabItem(tabName = "sub_1", 
                     selectizeInput('selected',
                                     'Select Variable to Display',
-                                    c('gender','children','region','smoker')),
+                                    c('gender','region','smoker')),
+                    
                     plotOutput("boxplot"),
-                    ),
+                    
+                     ),
+                    
+            tabItem(tabName = "sub_2", 
+                    
+                    plotOutput("children_boxplot"),
+                    br(),
+                    fluidRow(box(DT::dataTableOutput("children_table")))),
             
             tabItem(tabName = "correlation", 
                     

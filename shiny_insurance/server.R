@@ -92,6 +92,7 @@ shinyServer(function(input, output){
     
     
     #create boxplot of log expenses vs categorical variables
+    
     output$boxplot <- renderPlot({
         insurance_df %>% 
             mutate(children=as.factor(children)) %>% 
@@ -99,7 +100,26 @@ shinyServer(function(input, output){
         
     })
     
+    #create children boxplot
+    output$children_boxplot <- renderPlot({
+      insurance_df %>% 
+        mutate(children=as.factor(children)) %>% 
+        ggplot() + geom_boxplot(aes_string(x='children', y="log_expenses"))
+      
+    })
     
+    #show table of number of children
+    count_children <- 
+      insurance_df %>% group_by(children) %>% summarise(sum_children=sum(n())) 
+    
+    
+    
+    output$children_table <- DT::renderDataTable({
+      datatable(count_children, rownames=FALSE) %>% 
+        formatStyle('children', background="skyblue", fontWeight="bold")
+    })
+    
+  
     #create scatter plot of log expenses vs numeric variables
     output$scatterplot <- renderPlot({
         insurance_df %>% 
