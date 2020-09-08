@@ -9,4 +9,7 @@ library(DT)
 insurance_df <- read.csv(file="./insurance.csv")
 
 names(insurance_df)[names(insurance_df) == "sex"] <- "gender"
+
+insurance_df$log_expenses <- log(insurance_df$expenses, 10)
+
 insurance_df

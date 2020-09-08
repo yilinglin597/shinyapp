@@ -76,12 +76,19 @@ shinyServer(function(input, output){
     })
     
     
+    output$log_expenseshist <- renderPlot({
+      insurance_df %>% filter(region==input$selected_region) %>% 
+        ggplot(aes(x=log_expenses)) + geom_histogram()
+      
+    })
+    
+    
     
     
     output$boxplot <- renderPlot({
         insurance_df %>% 
             mutate(children=as.factor(children)) %>% 
-            ggplot() + geom_boxplot(aes_string(x=input$selected, y="expenses"))
+            ggplot() + geom_boxplot(aes_string(x=input$selected, y="log_expenses"))
         
     })
     
@@ -89,17 +96,17 @@ shinyServer(function(input, output){
 
     output$scatterplot <- renderPlot({
         insurance_df %>% 
-            ggplot(aes_string(x=input$selected_numeric, y="expenses")) + geom_point() + geom_smooth(method = "lm")
+            ggplot(aes_string(x=input$selected_numeric, y="log_expenses")) + geom_point() + geom_smooth(method = "lm")
         
                                         
     })
     
     
-    output$bmi_correlation = renderText({
+    output$correlation = renderText({
         x=insurance_df %>%
-            select(x=input$selected_numeric)
+            select(input$selected_numeric)
         y= insurance_df %>%
-            select(expenses)
+            select(log_expenses)
         corr = round(cor(x, y), digits = 5)
         
         paste('Correlation:',as.character(corr))

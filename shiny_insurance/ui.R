@@ -34,14 +34,18 @@ shinyUI(dashboardPage(
                         
                       
                     fluidRow(
-                        column(width=4,
+                        column(width=3,
                              plotOutput("bmihist")),
                         
-                        column(width=4,
+                        column(width=3,
                              plotOutput("agehist")),
                         
-                        column(width=4,
-                             plotOutput("expenseshist")))
+                        
+                        column(width=3,
+                               plotOutput("expenseshist")),
+                        
+                        column(width=3,
+                             plotOutput("log_expenseshist")))
                    
                     ),
                     
@@ -59,10 +63,10 @@ shinyUI(dashboardPage(
                                             c('bmi','age')),
                     plotOutput("scatterplot"),
                     br(),
-                    strong(textOutput("bmi_correlation"))
-                        
+                    strong(textOutput("correlation"))
                         
                     ),
+            
             tabItem(tabName = "data", 
                     fluidRow(box(DT::dataTableOutput("table")))),
             
