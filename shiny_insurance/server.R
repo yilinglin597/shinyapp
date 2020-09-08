@@ -1,9 +1,8 @@
 
 shinyServer(function(input, output){
     
+    #create info box of average bmi 
     output$avgbmiBox <- renderInfoBox({
-        
-        
         
         avg_bmi_value <- insurance_df %>% group_by(region) %>% 
           summarise(avg_bmi=mean(bmi))  %>%
@@ -13,6 +12,7 @@ shinyServer(function(input, output){
         
     })
     
+    #create info box of average age
     output$avgageBox <- renderInfoBox({
       
       avg_age_value <- insurance_df %>% group_by(region) %>% 
@@ -22,6 +22,7 @@ shinyServer(function(input, output){
       
     })
     
+    #create info box of average expense
     
     output$avgexpensesBox <- renderInfoBox({
       avg_expenses_value <- insurance_df %>% group_by(region) %>% 
@@ -31,6 +32,8 @@ shinyServer(function(input, output){
       
     })
     
+    #create info box of ratio of smoker
+    
     output$smokerBox <- renderInfoBox({
       smoker_ratio <- insurance_df %>% group_by(region) %>% 
         summarise(ratio=sum(smoker=="yes")/n())  %>%
@@ -38,6 +41,8 @@ shinyServer(function(input, output){
       infoBox(paste("Percentage of Smoker"), round(smoker_ratio$ratio,2), icon=icon('smoking'), color="black")
       
     })
+    
+    #create info box of ratio of male
     
     output$maleBox <- renderInfoBox({
       male_ratio <- insurance_df %>% group_by(region) %>% 
@@ -47,6 +52,7 @@ shinyServer(function(input, output){
       
     })
     
+    #create info box of ratio of female
     output$femaleBox <- renderInfoBox({
       female_ratio <- insurance_df %>% group_by(region) %>% 
         summarise(f_ratio=sum(gender=="female")/n())  %>%
@@ -55,7 +61,7 @@ shinyServer(function(input, output){
       
     })
     
-    
+    #create histogram of bmi
     output$bmihist <- renderPlot({
       insurance_df %>% filter(region==input$selected_region) %>% 
         ggplot(aes(x=bmi)) + geom_histogram()
@@ -63,19 +69,21 @@ shinyServer(function(input, output){
       
     })
     
+    #create histogram of age
     output$agehist <- renderPlot({
       insurance_df %>% filter(region==input$selected_region) %>% 
         ggplot(aes(x=age)) + geom_histogram()
       
     })
     
+    #create histogram of expenses
     output$expenseshist <- renderPlot({
       insurance_df %>% filter(region==input$selected_region) %>% 
         ggplot(aes(x=expenses)) + geom_histogram()
       
     })
     
-    
+    #create histogram of log expenses
     output$log_expenseshist <- renderPlot({
       insurance_df %>% filter(region==input$selected_region) %>% 
         ggplot(aes(x=log_expenses)) + geom_histogram()
@@ -83,8 +91,7 @@ shinyServer(function(input, output){
     })
     
     
-    
-    
+    #create boxplot of log expenses vs categorical variables
     output$boxplot <- renderPlot({
         insurance_df %>% 
             mutate(children=as.factor(children)) %>% 
@@ -93,7 +100,7 @@ shinyServer(function(input, output){
     })
     
     
-
+    #create scatter plot of log expenses vs numeric variables
     output$scatterplot <- renderPlot({
         insurance_df %>% 
             ggplot(aes_string(x=input$selected_numeric, y="log_expenses")) + geom_point() + geom_smooth(method = "lm")
@@ -101,7 +108,7 @@ shinyServer(function(input, output){
                                         
     })
     
-    
+    #show correlation between log expenses vs numeric variables
     output$correlation = renderText({
         x=insurance_df %>%
             select(input$selected_numeric)
@@ -112,7 +119,7 @@ shinyServer(function(input, output){
         paste('Correlation:',as.character(corr))
     })
     
-    
+    #show dataset
     output$table <- DT::renderDataTable({
       datatable(insurance_df, rownames=FALSE) %>% 
         formatStyle(input$selected, background="skyblue", fontWeight="bold")

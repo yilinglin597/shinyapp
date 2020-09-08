@@ -6,10 +6,12 @@ library(shinydashboard)
 library(googleVis)
 library(DT)
 
+#read dataset 
 insurance_df <- read.csv(file="./insurance.csv")
 
+#rename column name
 names(insurance_df)[names(insurance_df) == "sex"] <- "gender"
 
+#add log_expenses column
 insurance_df$log_expenses <- log(insurance_df$expenses, 10)
 
-insurance_df

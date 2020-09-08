@@ -2,6 +2,7 @@ library(googleVis)
 library(shiny)
 
 
+#create shiny dashboard layout
 shinyUI(dashboardPage(
     skin = "black",
     dashboardHeader(title = 'Medical Cost'), 
@@ -17,8 +18,9 @@ shinyUI(dashboardPage(
         )
     
         
-        
     ), 
+    
+    #content of the dashboard
     dashboardBody(
         tabItems(
             tabItem(tabName = "region_info",
