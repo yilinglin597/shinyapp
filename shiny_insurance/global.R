@@ -5,6 +5,7 @@ library(data.table)
 library(shinydashboard)
 library(googleVis)
 library(DT)
+library(rsconnect)
 
 #read dataset 
 insurance_df <- read.csv(file="./insurance.csv")

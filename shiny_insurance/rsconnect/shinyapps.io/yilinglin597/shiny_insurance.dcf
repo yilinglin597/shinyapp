@@ -1,0 +1,12 @@
+name: shiny_insurance
+title: shiny_insurance
+username:
+account: yilinglin597
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2770117
+bundleId: 3606914
+url: https://yilinglin597.shinyapps.io/shiny_insurance/
+when: 1599580442.57191
+asMultiple: FALSE
+asStatic: FALSE

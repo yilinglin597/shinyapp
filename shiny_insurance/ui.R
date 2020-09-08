@@ -86,7 +86,7 @@ shinyUI(dashboardPage(
                     fluidRow(
                     tags$div(style='text-align: left; width: 50%; margin-left: auto; margin-right: auto; color=blue ',
                     h4("Yiling Lin is a data enthusiast with proven talent for for executing business strategy according to data analytics and project management paradigms."),
-                    h4("Her professional experience in the music industry is also recogized for effectively coordinating clients and cross-functional teams from international cultures and backgrounds to deliver exceptional programs."),
+                    h4("Her experience in the music industry is also recogized for effectively coordinating clients and cross-functional teams from international cultures and backgrounds to deliver exceptional programs."),
                     h4("She holds a M.A. in Performing Arts Administration from New York University.")
                     ))
                     
