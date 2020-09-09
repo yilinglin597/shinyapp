@@ -100,13 +100,30 @@ shinyServer(function(input, output){
         
     })
     
-    #create children boxplot
-    output$children_boxplot <- renderPlot({
+    #create boxplot of expense without log
+    output$expenses_boxplot <- renderPlot({
+      insurance_df %>% 
+        mutate(children=as.factor(children)) %>% 
+        ggplot() + geom_boxplot(aes_string(x=input$selected, y="expenses"))
+      
+    })
+    
+    #create children vs expense boxplot
+    output$children_log_boxplot <- renderPlot({
       insurance_df %>% 
         mutate(children=as.factor(children)) %>% 
         ggplot() + geom_boxplot(aes_string(x='children', y="log_expenses"))
       
+      
     })
+    
+    #create children vs expense boxplot without log
+    output$children_boxplot <- renderPlot({
+      insurance_df %>% 
+        mutate(children=as.factor(children)) %>% 
+        ggplot() + geom_boxplot(aes_string(x='children', y="expenses"))
+    })
+    
     
     #show table of number of children
     count_children <- 

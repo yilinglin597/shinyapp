@@ -59,11 +59,15 @@ shinyUI(dashboardPage(
                                     c('gender','region','smoker')),
                     
                     plotOutput("boxplot"),
+                    br(),
+                    plotOutput("expenses_boxplot"),
                     
                      ),
                     
             tabItem(tabName = "sub_2", 
                     
+                    plotOutput("children_log_boxplot"),
+                    br(),
                     plotOutput("children_boxplot"),
                     br(),
                     fluidRow(box(DT::dataTableOutput("children_table")))),
