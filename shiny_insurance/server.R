@@ -100,7 +100,7 @@ shinyServer(function(input, output){
         
     })
     
-    #create boxplot of expense without log
+    # #create boxplot of  expenses vs categorical variables 
     output$expenses_boxplot <- renderPlot({
       insurance_df %>% 
         mutate(children=as.factor(children)) %>% 
